@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const eggCookingTimes = {
     S: {
-        "Az Pişmiş": 2,
+        "Az Pişmiş": 0.5,
         Kayısı: 3,
         Rafadan: 5,
         "Tam Pişmiş": 10,
@@ -86,30 +86,30 @@ const EggTimerApp = () => {
 
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
-            <div className="bg-black shadow-2xl rounded-2xl w-full max-w-md overflow-hidden max-sm:border-none xl:border-2 xl:border-yellow-500">
-                <div className="bg-yellow-500 max-sm:bg-black max-sm:text-yellow-500 text-black p-4 text-center">
+            <div className="bg-black rounded-2xl w-full max-w-md overflow-hidden max-sm:border-none xl:border-2 xl:border-yellow-500">
+                <div className="bg-yellow-300 max-sm:bg-black max-sm:text-yellow-300 text-black p-4 text-center">
                     <h1 className="text-xl font-bold">Yumurta Zamanlayıcısı</h1>
                 </div>
 
                 <div className="p-6">
                     {/* Zamanlayıcı */}
-                    <div className="mb-6 text-center">
-                        <div className="bg-black rounded-full w-48 h-48 mx-auto flex flex-col items-center justify-center mb-4 shadow-inner border-2 border-yellow-500">
+                    <div className="mb-10 text-center">
+                        <div className="bg-black rounded-full w-52 h-52 mx-auto flex flex-col items-center justify-center mb-4 border-3 border-yellow-300">
                             {!isRunning && timeLeft === 0 ? (
                                 <div className="text-center">
-                                    <div className="text-lg text-yellow-500 font-semibold">
+                                    <div className="text-lg text-yellow-300 font-semibold">
                                         {eggSize} Boy - {cookingStyle}
                                     </div>
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center">
-                                    <div className="text-5xl mt-4 font-bold text-yellow-500">{formatTime(timeLeft).timer}</div>
+                                    <div className="text-5xl mt-4 font-bold text-yellow-300">{formatTime(timeLeft).timer}</div>
                                     {!isRunning ? (
-                                        <button onClick={startTimer} className=" text-yellow-500 mt-2">
+                                        <button onClick={startTimer} className=" text-yellow-300 mt-2">
                                             Başlat
                                         </button>
                                     ) : (
-                                        <button onClick={stopTimer} className=" text-yellow-500 mt-2">
+                                        <button onClick={stopTimer} className=" text-yellow-300 mt-2">
                                             Durdur
                                         </button>
                                     )}
@@ -125,9 +125,9 @@ const EggTimerApp = () => {
                                 <button
                                     key={size}
                                     onClick={() => changeEggSize(size)}
-                                    className={`w-12 h-12 rounded-full text-sm transition-all duration-300 ${eggSize === size ? "bg-yellow-500 text-black" : "bg-gray-900 text-yellow-300"} ${
-                                        isRunning ? "opacity-50 cursor-not-allowed" : ""
-                                    }`}
+                                    className={`w-12 h-12 rounded-full text-sm font-semibold transition-all duration-300 ${
+                                        eggSize === size ? "bg-yellow-300 text-black" : "bg-gray-900 text-yellow-300"
+                                    } ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
                                     disabled={isRunning}
                                 >
                                     {size}
@@ -143,9 +143,9 @@ const EggTimerApp = () => {
                                 <button
                                     key={style}
                                     onClick={() => changeCookingStyle(style)}
-                                    className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${cookingStyle === style ? "bg-yellow-500 text-black" : "bg-gray-900 text-yellow-300"} ${
-                                        isRunning ? "opacity-50 cursor-not-allowed" : ""
-                                    }`}
+                                    className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                                        cookingStyle === style ? "bg-yellow-300 text-black" : "bg-gray-900 text-yellow-300"
+                                    } ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
                                     disabled={isRunning}
                                 >
                                     {style}
@@ -158,7 +158,7 @@ const EggTimerApp = () => {
 
                     {timeLeft === 0 && (
                         <div className="text-center mt-4">
-                            <div className="text-yellow-500 font-semibold text-xl">Yumurtanız Hazır! 🥚</div>
+                            <div className="text-yellow-300 font-semibold text-xl">Yumurtanız Hazır! 🥚</div>
                         </div>
                     )}
                 </div>
