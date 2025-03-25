@@ -101,26 +101,26 @@ const EggTimerApp = () => {
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
             <div className="bg-black rounded-2xl w-full max-w-md overflow-hidden max-sm:border-none border-2 border-yellow-500">
-                <div className="bg-yellow-300 max-sm:bg-black max-sm:text-yellow-300 text-black p-4 text-center">
-                    <h1 className="text-xl font-bold">Yumurta Zamanlayıcısı</h1>
+                <div className="bg-yellow-300 max-sm:bg-black max-sm:text-yellow-300 text-black p-4 max-sm:p-0 text-center">
+                    <h1 className="text-xl max-sm:text-lg font-bold">Yumurta Zamanlayıcısı</h1>
                 </div>
 
                 <div className="p-6">
                     {/* Seçim Bilgileri */}
                     <div className="mb-6 text-center">
-                        <div className="text-yellow-300 text-xl font-bold mb-2">Boyutu: {eggSize} Boy</div>
+                        <div className="text-yellow-300 text-lg font-semibold mb-2">Boyutu: {eggSize} Boy</div>
                         <div className="text-yellow-400 text-sm">
                             {eggSizeInfo[eggSize].description} - {eggSizeInfo[eggSize].weight}
                         </div>
                     </div>
 
                     <div className="mb-6 text-center">
-                        <div className="text-yellow-300 text-xl font-bold mb-2">Pişirme Derecesi: {cookingStyle}</div>
+                        <div className="text-yellow-300 text-lg font-semibold mb-2">Pişirme Derecesi: {cookingStyle}</div>
                         <div className="text-yellow-400 text-sm">{cookingStyleDescriptions[cookingStyle]}</div>
                     </div>
 
                     {/* Zamanlayıcı */}
-                    <div className="mb-10 text-center">
+                    <div className="mb-10 mt-6 text-center">
                         <div className="bg-black rounded-full w-52 h-52 mx-auto flex flex-col items-center justify-center mb-4 border-3 border-yellow-300">
                             {!isRunning && timeLeft === 0 ? (
                                 <div className="text-center">
