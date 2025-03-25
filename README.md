@@ -51,4 +51,4 @@ yarn start
 ## 📸 Ekran Görüntüleri (Screenshots)
 
 ### Zamanlayıcı Çalışırken (Timer Running)
-![Zamanlayıcı Çalışıyor](timer-running.png)
+![Zamanlayıcı Çalışıyor](https://github.com/mustafakaracuha/egg-timer/blob/master/src/assets/main.png)
