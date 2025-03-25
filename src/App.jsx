@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Timer, Pause } from "lucide-react";
+
+const eggSizeInfo = {
+    S: { weight: "50g", description: "Küçük Boy" },
+    M: { weight: "60g", description: "Orta Boy" },
+    L: { weight: "70g", description: "Büyük Boy" },
+    XL: { weight: "80g", description: "Çok Büyük Boy" },
+};
 
 const eggCookingTimes = {
     S: {
-        "Az Pişmiş": 0.5,
+        "Az Pişmiş": 2,
         Kayısı: 3,
         Rafadan: 5,
         "Tam Pişmiş": 10,
@@ -27,6 +35,13 @@ const eggCookingTimes = {
     },
 };
 
+const cookingStyleDescriptions = {
+    "Az Pişmiş": "Sıvı sarı, çok yumuşak",
+    Kayısı: "Hafif akışkan sarı, yumuşak",
+    Rafadan: "Yarı katı, orta kıvam",
+    "Tam Pişmiş": "Tamamen katı, sert sarı",
+};
+
 const EggTimerApp = () => {
     const [eggSize, setEggSize] = useState("S");
     const [cookingStyle, setCookingStyle] = useState("Az Pişmiş");
@@ -40,7 +55,6 @@ const EggTimerApp = () => {
     };
 
     const stopTimer = () => {
-        // Reset timer to initial duration when stopped
         const initialDuration = eggCookingTimes[eggSize][cookingStyle] * 60;
         setTimeLeft(initialDuration);
         setIsRunning(false);
@@ -86,12 +100,25 @@ const EggTimerApp = () => {
 
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
-            <div className="bg-black rounded-2xl w-full max-w-md overflow-hidden max-sm:border-none xl:border-2 xl:border-yellow-500">
+            <div className="bg-black rounded-2xl w-full max-w-md overflow-hidden max-sm:border-none border-2 border-yellow-500">
                 <div className="bg-yellow-300 max-sm:bg-black max-sm:text-yellow-300 text-black p-4 text-center">
                     <h1 className="text-xl font-bold">Yumurta Zamanlayıcısı</h1>
                 </div>
 
                 <div className="p-6">
+                    {/* Seçim Bilgileri */}
+                    <div className="mb-6 text-center">
+                        <div className="text-yellow-300 text-xl font-bold mb-2">Boyutu: {eggSize} Boy</div>
+                        <div className="text-yellow-400 text-sm">
+                            {eggSizeInfo[eggSize].description} - {eggSizeInfo[eggSize].weight}
+                        </div>
+                    </div>
+
+                    <div className="mb-6 text-center">
+                        <div className="text-yellow-300 text-xl font-bold mb-2">Pişirme Derecesi: {cookingStyle}</div>
+                        <div className="text-yellow-400 text-sm">{cookingStyleDescriptions[cookingStyle]}</div>
+                    </div>
+
                     {/* Zamanlayıcı */}
                     <div className="mb-10 text-center">
                         <div className="bg-black rounded-full w-52 h-52 mx-auto flex flex-col items-center justify-center mb-4 border-3 border-yellow-300">
@@ -105,11 +132,11 @@ const EggTimerApp = () => {
                                 <div className="flex flex-col items-center justify-center">
                                     <div className="text-5xl mt-4 font-bold text-yellow-300">{formatTime(timeLeft).timer}</div>
                                     {!isRunning ? (
-                                        <button onClick={startTimer} className=" text-yellow-300 mt-2">
+                                        <button onClick={startTimer} className="text-yellow-300 mt-2 hover:text-yellow-500 transition">
                                             Başlat
                                         </button>
                                     ) : (
-                                        <button onClick={stopTimer} className=" text-yellow-300 mt-2">
+                                        <button onClick={stopTimer} className="text-yellow-300 mt-2 hover:text-yellow-500 transition">
                                             Durdur
                                         </button>
                                     )}
@@ -126,7 +153,7 @@ const EggTimerApp = () => {
                                     key={size}
                                     onClick={() => changeEggSize(size)}
                                     className={`w-12 h-12 rounded-full text-sm font-semibold transition-all duration-300 ${
-                                        eggSize === size ? "bg-yellow-300 text-black" : "bg-gray-900 text-yellow-300"
+                                        eggSize === size ? "bg-yellow-300 text-black scale-110" : "bg-gray-900 text-yellow-300 hover:bg-gray-800"
                                     } ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
                                     disabled={isRunning}
                                 >
@@ -144,7 +171,7 @@ const EggTimerApp = () => {
                                     key={style}
                                     onClick={() => changeCookingStyle(style)}
                                     className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
-                                        cookingStyle === style ? "bg-yellow-300 text-black" : "bg-gray-900 text-yellow-300"
+                                        cookingStyle === style ? "bg-yellow-300 text-black scale-105" : "bg-gray-900 text-yellow-300 hover:bg-gray-800"
                                     } ${isRunning ? "opacity-50 cursor-not-allowed" : ""}`}
                                     disabled={isRunning}
                                 >
@@ -154,11 +181,10 @@ const EggTimerApp = () => {
                         </div>
                     </div>
 
-                    {/* Kontrol Butonları */}
-
+                    {/* Hazır Olduğunda */}
                     {timeLeft === 0 && (
                         <div className="text-center mt-4">
-                            <div className="text-yellow-300 font-semibold text-xl">Yumurtanız Hazır! 🥚</div>
+                            <div className="text-yellow-300 font-semibold text-xl animate-pulse">Yumurtanız Hazır! 🥚</div>
                         </div>
                     )}
                 </div>
