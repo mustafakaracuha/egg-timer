@@ -2,7 +2,7 @@
 
 A responsive and stylish React application to help you perfectly cook your eggs every time!
 
-![App Screenshot](https://github.com/mustafakaracuha/egg-timer/blob/master/src/assets/main.png?raw=true&width=200)
+<img src="https://github.com/mustafakaracuha/egg-timer/blob/master/src/assets/main.png" width="400"/>
 
 ## 🌟 Özellikler (Features)
 
@@ -56,4 +56,4 @@ yarn start
 
 ### Zamanlayıcı Çalışırken (Timer Running)
 
-![Zamanlayıcı Çalışıyor](https://github.com/mustafakaracuha/egg-timer/blob/master/src/assets/start.png?raw=true&width=200)
+<img src="https://github.com/mustafakaracuha/egg-timer/blob/master/src/assets/start.png" width="400"/>
