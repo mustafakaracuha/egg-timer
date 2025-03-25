@@ -52,14 +52,3 @@ yarn start
 
 ### Zamanlayıcı Çalışırken (Timer Running)
 ![Zamanlayıcı Çalışıyor](timer-running.png)
-
-
-## 📄 Lisans (License)
-
-MIT Lisansı altında dağıtılmaktadır. Detaylar için `LICENSE` dosyasına bakın.
-
-## 📞 İletişim (Contact)
-
-Proje Sahibi - [Kullanıcı Adı](https://github.com/mustafakaracuha)
-
-Proje Linki: [https://github.com/kullaniciadi/yumurta-zamanlayicisi](https://github.com/kullaniciadi/yumurta-zamanlayicisi)
