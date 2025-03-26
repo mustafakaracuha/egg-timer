@@ -100,7 +100,7 @@ const EggTimerApp = () => {
 
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
-            <div className="bg-black rounded-2xl w-full max-w-md overflow-hidden max-sm:border-none border-2 border-yellow-500">
+            <div className="bg-black rounded-2xl w-full max-w-md overflow-hidden max-sm:border-none border-3 border-yellow-300">
                 <div className="bg-yellow-300 max-sm:bg-black max-sm:text-yellow-300 text-black p-4 max-sm:p-0 text-center">
                     <h1 className="text-xl max-sm:text-lg font-bold">Yumurta Zamanlayıcısı</h1>
                 </div>
