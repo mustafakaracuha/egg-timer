@@ -52,10 +52,12 @@ const EggTimerApp = () => {
     const synth = new Tone.Synth().toDestination();
 
     const playReadySound = () => {
-        const now = Tone.now();
-        synth.triggerAttackRelease("C4", "8n", now);
-        synth.triggerAttackRelease("E4", "8n", now + 0.5);
-        synth.triggerAttackRelease("G4", "8n", now + 1);
+        const player = new Tone.Player(
+            "https://tonejs.github.io/audio/berklee/Pling2.mp3"
+        ).toDestination();
+        Tone.loaded().then(() => {
+            player.start();
+        });
     };
 
     const startTimer = () => {
