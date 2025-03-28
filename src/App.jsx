@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Timer, Pause } from "lucide-react";
 
 const eggSizeInfo = {
     S: { weight: "50g", description: "Küçük Boy" },
