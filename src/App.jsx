@@ -10,7 +10,7 @@ const eggSizeInfo = {
 
 const eggCookingTimes = {
     S: {
-        "Az Pişmiş": 2,
+        "Az Pişmiş": 0.05,
         Kayısı: 3,
         Rafadan: 5,
         "Tam Pişmiş": 10,
@@ -53,9 +53,9 @@ const EggTimerApp = () => {
 
     const playReadySound = () => {
         const now = Tone.now();
-        synth.triggerAttackRelease("C5", "8n", now);
-        synth.triggerAttackRelease("E5", "8n", now + 0.2);
-        synth.triggerAttackRelease("G5", "4n", now + 0.4);
+        synth.triggerAttackRelease("C4", "8n", now);
+        synth.triggerAttackRelease("E4", "8n", now + 0.5);
+        synth.triggerAttackRelease("G4", "8n", now + 1);
     };
 
     const startTimer = () => {
