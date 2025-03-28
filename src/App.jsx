@@ -66,35 +66,36 @@ const eggSizeInfo = {
 const eggCookingTimes = {
     S: {
         "Az Pişmiş": 0.05,
-        Kayısı: 3,
+        Kayısı: 4,
         Rafadan: 5,
         "Tam Pişmiş": 10,
     },
     M: {
-        "Az Pişmiş": 3,
-        Kayısı: 4,
-        Rafadan: 6,
-        "Tam Pişmiş": 12,
-    },
-    L: {
         "Az Pişmiş": 4,
         Kayısı: 5,
+        Rafadan: 6,
+        "Tam Pişmiş": 11,
+    },
+    L: {
+        "Az Pişmiş": 5,
+        Kayısı: 6,
         Rafadan: 7,
-        "Tam Pişmiş": 14,
+        "Tam Pişmiş": 12,
     },
     XL: {
         "Az Pişmiş": 6,
         Kayısı: 8,
         Rafadan: 9,
-        "Tam Pişmiş": 15,
+        "Tam Pişmiş": 14,
     },
 };
 
+
 const cookingStyleDescriptions = {
-    "Az Pişmiş": "Sıvı sarı, çok yumuşak",
-    Kayısı: "Hafif akışkan sarı, yumuşak",
-    Rafadan: "Yarı katı, orta kıvam",
-    "Tam Pişmiş": "Tamamen katı, sert sarı",
+    "Az Pişmiş": "Beyazı hafif pişmiş, sarısı tamamen sıvı",
+    Kayısı: "Beyazı tamamen pişmiş, sarısı hafif akışkan",
+    Rafadan: "Beyazı sertleşmiş, sarısı kremsi ve yarı katı",
+    "Tam Pişmiş": "Beyazı ve sarısı tamamen katı ve sert",
 };
 
 const EggTimerApp = () => {
@@ -287,7 +288,6 @@ const EggTimerApp = () => {
                             {currentTip && <div className="italic text-yellow-300">{currentTip}</div>}
                         </div>
                     )}
-
 
                     {/* Hazır Olduğunda */}
                     {isEggReady && (
