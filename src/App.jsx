@@ -16,7 +16,7 @@ const eggFacts = [
         icon: <Heart className="inline-block mr-2 text-yellow-300" />,
     },
     {
-        fact: "A, D, E ve B6 vitaminleri açısından oldukça zengin bir besin!",
+        fact: "Yumurta A, D, E ve B6 vitaminleri açısından oldukça zengin bir besin!",
         icon: <ChefHat className="inline-block mr-2 text-yellow-300" />,
     },
     {
@@ -65,7 +65,7 @@ const eggSizeInfo = {
 
 const eggCookingTimes = {
     S: {
-        "Az Pişmiş": 0.05,
+        "Az Pişmiş": 3,
         Kayısı: 4,
         Rafadan: 5,
         "Tam Pişmiş": 10,
