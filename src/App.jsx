@@ -10,7 +10,7 @@ const eggSizeInfo = {
 
 const eggCookingTimes = {
     S: {
-        "Az Pişmiş": 2,
+        "Az Pişmiş": 0.05,
         Kayısı: 3,
         Rafadan: 5,
         "Tam Pişmiş": 10,
