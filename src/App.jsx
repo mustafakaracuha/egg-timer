@@ -1,11 +1,66 @@
 import React, { useState, useEffect } from "react";
 import * as Tone from "tone";
+import { Egg, Star, Heart, ThermometerSun, ChefHat } from "lucide-react";
+
+const eggFacts = [
+    {
+        fact: "Dünyada günde yaklaşık 3 milyar yumurta tüketiliyor!",
+        icon: <Star className="inline-block mr-2 text-yellow-300" />,
+    },
+    {
+        fact: "Bir tavuk günde 1-2 yumurta üretebilir.",
+        icon: <Egg className="inline-block mr-2 text-yellow-300" />,
+    },
+    {
+        fact: "Ortalama bir yumurta 6-7 gram protein içerir.",
+        icon: <Heart className="inline-block mr-2 text-yellow-300" />,
+    },
+    {
+        fact: "A, D, E vitaminleri açısından oldukça zengin bir besin!",
+        icon: <ChefHat className="inline-block mr-2 text-yellow-300" />,
+    },
+    {
+        fact: "Bazı tavuklar mavi veya yeşil yumurta üretebilir!",
+        icon: <ThermometerSun className="inline-block mr-2 text-yellow-300" />,
+    },
+];
+
+const eggTips = [
+    "💡 İpucu: Yumurtayı oda sıcaklığında pişirmek daha eşit pişmesini sağlar!",
+    "💡 Püf Nokta: Taze yumurtalar daha lezzetli ve besleyicidir!",
+    "💡 Öneri: Yumurtayı fazla pişirmeyin, protein değerini koruyun!",
+    "💡 Mutfak Sırrı: Tuzlu su içinde yumurta daha kolay soyulur!",
+    "💡 Sağlık İçin: Günde 1-2 yumurta tüketmek sağlıklıdır!",
+];
+
+const nutritionInfo = {
+    "Az Pişmiş": {
+        calories: 63,
+        protein: 6,
+        description: "En fazla besin değerini korur",
+    },
+    Kayısı: {
+        calories: 70,
+        protein: 6.5,
+        description: "Yumuşak ve besleyici",
+    },
+    Rafadan: {
+        calories: 75,
+        protein: 7,
+        description: "Dengeli besin değeri",
+    },
+    "Tam Pişmiş": {
+        calories: 80,
+        protein: 7.5,
+        description: "En sert protein yapısı",
+    },
+};
 
 const eggSizeInfo = {
-    S: { weight: "50g", description: "Küçük Boy" },
-    M: { weight: "60g", description: "Orta Boy" },
-    L: { weight: "70g", description: "Büyük Boy" },
-    XL: { weight: "80g", description: "Çok Büyük Boy" },
+    S: { weight: "50g", description: "Küçük Boy", emoji: "🥚", protein: 5, calories: 55 },
+    M: { weight: "60g", description: "Orta Boy", emoji: "🍳", protein: 6, calories: 65 },
+    L: { weight: "70g", description: "Büyük Boy", emoji: "🧇", protein: 7, calories: 75 },
+    XL: { weight: "80g", description: "Çok Büyük Boy", emoji: "🥣", protein: 8, calories: 85 },
 };
 
 const eggCookingTimes = {
@@ -49,22 +104,30 @@ const EggTimerApp = () => {
     const [isRunning, setIsRunning] = useState(false);
     const [isEggReady, setIsEggReady] = useState(false);
     const [soundPlayer, setSoundPlayer] = useState(null);
+    const [currentFact, setCurrentFact] = useState(null);
+    const [currentTip, setCurrentTip] = useState(null);
 
     const playReadySound = () => {
-        const player = new Tone.Player(
-            "https://tonejs.github.io/audio/berklee/Pling2.mp3"
-        ).toDestination();
-        
+        const player = new Tone.Player("https://tonejs.github.io/audio/berklee/Pling2.mp3").toDestination();
+
         Tone.loaded().then(() => {
             player.start();
             setSoundPlayer(player);
         });
     };
+
     const startTimer = () => {
         const duration = eggCookingTimes[eggSize][cookingStyle] * 60;
         setTimeLeft(duration);
         setIsRunning(true);
         setIsEggReady(false);
+
+        // Randomly select a fact and a tip
+        const randomFact = eggFacts[Math.floor(Math.random() * eggFacts.length)];
+        const randomTip = eggTips[Math.floor(Math.random() * eggTips.length)];
+
+        setCurrentFact(randomFact);
+        setCurrentTip(randomTip);
     };
 
     const stopTimer = () => {
@@ -89,6 +152,29 @@ const EggTimerApp = () => {
         }
     };
 
+    const closeFullScreenNotification = () => {
+        // Stop the sound if it's playing
+        if (soundPlayer) {
+            soundPlayer.stop();
+            setSoundPlayer(null);
+        }
+
+        setEggSize("S");
+        setCookingStyle("Az Pişmiş");
+        setTimeLeft(eggCookingTimes["S"]["Az Pişmiş"] * 60);
+        setIsRunning(false);
+        setIsEggReady(false);
+    };
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return {
+            display: `${minutes} dk ${remainingSeconds} sn`,
+            timer: `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`,
+        };
+    };
+
     useEffect(() => {
         let interval;
         if (isRunning && timeLeft > 0) {
@@ -104,29 +190,6 @@ const EggTimerApp = () => {
         return () => clearInterval(interval);
     }, [isRunning, timeLeft]);
 
-    const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return {
-            display: `${minutes} dk ${remainingSeconds} sn`,
-            timer: `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`,
-        };
-    };
-
-    const closeFullScreenNotification = () => {
-        // Stop the sound if it's playing
-        if (soundPlayer) {
-            soundPlayer.stop();
-            setSoundPlayer(null);
-        }
-    
-        setEggSize("S");
-        setCookingStyle("Az Pişmiş");
-        setTimeLeft(eggCookingTimes["S"]["Az Pişmiş"] * 60);
-        setIsRunning(false);
-        setIsEggReady(false);
-    };
-
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4">
             <div className="bg-black rounded-2xl w-full max-w-md overflow-hidden max-sm:border-none border-3 border-yellow-300">
@@ -137,7 +200,9 @@ const EggTimerApp = () => {
                 <div className="p-6">
                     {/* Seçim Bilgileri */}
                     <div className="mb-6 text-center">
-                        <div className="text-yellow-300 text-lg font-semibold mb-2">Boyutu: {eggSize} Boy</div>
+                        <div className="text-yellow-300 text-lg font-semibold mb-2">
+                            Boyutu: {eggSize} Boy {eggSizeInfo[eggSize].emoji}
+                        </div>
                         <div className="text-yellow-400 text-sm">
                             {eggSizeInfo[eggSize].description} - {eggSizeInfo[eggSize].weight}
                         </div>
@@ -209,6 +274,20 @@ const EggTimerApp = () => {
                             ))}
                         </div>
                     </div>
+
+                    {/* Yeni Bilgi Kartları */}
+                    {isRunning && (currentFact || currentTip) && (
+                        <div className="absolute bottom-4 left-4 right-4 bg-gray-900 p-4 rounded-lg shadow-lg text-sm text-center text-white">
+                            {currentFact && (
+                                <div className="mb-2 flex items-center justify-center">
+                                    {currentFact.icon}
+                                    {currentFact.fact}
+                                </div>
+                            )}
+                            {currentTip && <div className="italic text-yellow-300">{currentTip}</div>}
+                        </div>
+                    )}
+
 
                     {/* Hazır Olduğunda */}
                     {isEggReady && (
