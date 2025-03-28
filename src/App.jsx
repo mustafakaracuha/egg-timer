@@ -48,18 +48,18 @@ const EggTimerApp = () => {
     const [timeLeft, setTimeLeft] = useState(eggCookingTimes["S"]["Az Pişmiş"] * 60);
     const [isRunning, setIsRunning] = useState(false);
     const [isEggReady, setIsEggReady] = useState(false);
-
-    const synth = new Tone.Synth().toDestination();
+    const [soundPlayer, setSoundPlayer] = useState(null);
 
     const playReadySound = () => {
         const player = new Tone.Player(
             "https://tonejs.github.io/audio/berklee/Pling2.mp3"
         ).toDestination();
+        
         Tone.loaded().then(() => {
             player.start();
+            setSoundPlayer(player);
         });
     };
-
     const startTimer = () => {
         const duration = eggCookingTimes[eggSize][cookingStyle] * 60;
         setTimeLeft(duration);
@@ -114,6 +114,12 @@ const EggTimerApp = () => {
     };
 
     const closeFullScreenNotification = () => {
+        // Stop the sound if it's playing
+        if (soundPlayer) {
+            soundPlayer.stop();
+            setSoundPlayer(null);
+        }
+    
         setEggSize("S");
         setCookingStyle("Az Pişmiş");
         setTimeLeft(eggCookingTimes["S"]["Az Pişmiş"] * 60);
