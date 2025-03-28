@@ -16,7 +16,7 @@ const eggFacts = [
         icon: <Heart className="inline-block mr-2 text-yellow-300" />,
     },
     {
-        fact: "A, D, E vitaminleri açısından oldukça zengin bir besin!",
+        fact: "A, D, E ve B6 vitaminleri açısından oldukça zengin bir besin!",
         icon: <ChefHat className="inline-block mr-2 text-yellow-300" />,
     },
     {
