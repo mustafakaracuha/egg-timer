@@ -10,7 +10,7 @@ const eggSizeInfo = {
 
 const eggCookingTimes = {
     S: {
-        "Az Pişmiş": 0.05,
+        "Az Pişmiş": 2,
         Kayısı: 3,
         Rafadan: 5,
         "Tam Pişmiş": 10,
@@ -209,9 +209,6 @@ const EggTimerApp = () => {
                                 <div className="text-6xl mb-4">🥚</div>
                             </div>
                             <h2 className="text-4xl font-bold text-yellow-300 mb-6">Yumurtanız Hazır!</h2>
-                            <p className="text-xl text-yellow-400 mb-8">
-                                {eggSize} Boy - {cookingStyle} Pişirme Stili
-                            </p>
                             <p className="text-lg text-white">Kapatmak için dokun</p>
                         </div>
                     )}
