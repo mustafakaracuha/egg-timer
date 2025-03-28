@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as Tone from "tone";
 
 const eggSizeInfo = {
     S: { weight: "50g", description: "Küçük Boy" },
@@ -46,11 +47,22 @@ const EggTimerApp = () => {
     const [cookingStyle, setCookingStyle] = useState("Az Pişmiş");
     const [timeLeft, setTimeLeft] = useState(eggCookingTimes["S"]["Az Pişmiş"] * 60);
     const [isRunning, setIsRunning] = useState(false);
+    const [isEggReady, setIsEggReady] = useState(false);
+
+    const synth = new Tone.Synth().toDestination();
+
+    const playReadySound = () => {
+        const now = Tone.now();
+        synth.triggerAttackRelease("C5", "8n", now);
+        synth.triggerAttackRelease("E5", "8n", now + 0.2);
+        synth.triggerAttackRelease("G5", "4n", now + 0.4);
+    };
 
     const startTimer = () => {
         const duration = eggCookingTimes[eggSize][cookingStyle] * 60;
         setTimeLeft(duration);
         setIsRunning(true);
+        setIsEggReady(false);
     };
 
     const stopTimer = () => {
@@ -83,6 +95,8 @@ const EggTimerApp = () => {
             }, 1000);
         } else if (timeLeft === 0 && isRunning) {
             setIsRunning(false);
+            setIsEggReady(true);
+            playReadySound();
         }
 
         return () => clearInterval(interval);
@@ -95,6 +109,14 @@ const EggTimerApp = () => {
             display: `${minutes} dk ${remainingSeconds} sn`,
             timer: `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`,
         };
+    };
+
+    const closeFullScreenNotification = () => {
+        setEggSize("S");
+        setCookingStyle("Az Pişmiş");
+        setTimeLeft(eggCookingTimes["S"]["Az Pişmiş"] * 60);
+        setIsRunning(false);
+        setIsEggReady(false);
     };
 
     return (
@@ -181,9 +203,16 @@ const EggTimerApp = () => {
                     </div>
 
                     {/* Hazır Olduğunda */}
-                    {timeLeft === 0 && (
-                        <div className="text-center mt-4">
-                            <div className="text-yellow-300 font-semibold text-xl animate-pulse">Yumurtanız Hazır! 🥚</div>
+                    {isEggReady && (
+                        <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex flex-col items-center justify-center text-center" onClick={closeFullScreenNotification}>
+                            <div className="animate-bounce">
+                                <div className="text-6xl mb-4">🥚</div>
+                            </div>
+                            <h2 className="text-4xl font-bold text-yellow-300 mb-6">Yumurtanız Hazır!</h2>
+                            <p className="text-xl text-yellow-400 mb-8">
+                                {eggSize} Boy - {cookingStyle} Pişirme Stili
+                            </p>
+                            <p className="text-lg text-white">Kapatmak için dokun</p>
                         </div>
                     )}
                 </div>
